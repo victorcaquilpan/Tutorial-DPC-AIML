@@ -11,12 +11,10 @@ Some advantages of using DPC:
 * Internet connection (great for recording the logs in real time - try [Wandb](https://wandb.ai/) 😀)
 * You can execute either Python or R scripts
 
-There is already a [main tutorial](https://github.com/aiml-au) for DPC use, however, the current demo is created in a higher level (dummy demo).
-
 ### Steps 
 
 
-You need an @aiml.team account for accesing to DPC. For this, you need to be a student or member of AIML and you need to get an @aiml.team account.
+You need an @aiml.team account for accesing to DPC. For this, you need to be a student or member of AIML and you need to get an @aiml.team account. Ask me how you can get one.
 
 Once, you get your @aiml.team account, you can access to the main DPC documentation here: https://help.cluster.aiml.team/. You need to follow all the steps of the **Preparation** section described there, before using DPC. After that, we will be running a basic experiment available in this repository. For that, you can clone it typing:
 
