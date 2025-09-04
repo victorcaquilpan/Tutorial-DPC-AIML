@@ -33,7 +33,7 @@ git clone https://github.com/victorcaquilpan/tutorial-dpc.git
 cd tutorial-dpc
 ```
 
-NOw, you need an @aiml.team account for accesing to DPC. For this, you need to be a student or member of AIML. So, the first step is sending an email to admins@aiml.team requesting for the use of DPC. You need to CC your AIML supervisor. 
+Now, you need an @aiml.team account for accesing to DPC. For this, you need to be a student or member of AIML. So, the first step is sending an email to admins@aiml.team requesting for the use of DPC. You need to CC your AIML supervisor. 
 
 Once, you get your @aiml.team account, you can access to the main DPC documentation here: https://help.cluster.aiml.team/. You need to follow all the steps of the **Preparation** section described there, before using DPC. After that, for running your experiments mostly you need to follow three steps:
 
