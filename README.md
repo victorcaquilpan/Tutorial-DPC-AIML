@@ -95,6 +95,9 @@ cd training-jobs
 kubectl create -f experiment1.yaml
 ```
 
+After that, you can use  ```kubectl get pods```
+
+
 
 
 

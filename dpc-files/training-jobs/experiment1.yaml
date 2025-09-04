@@ -28,7 +28,7 @@ spec:
               cd 
               pip install --upgrade pip
               git clone "https://github.com/victorcaquilpan/Tutorial-DPC-AIML"
-              cd mnist-dpc
+              cd Tutorial-DPC-AIML/code_repo/
               pip install -r requirements.txt
               python train.py --path_data=/data/mnist-data/fashion-mnist.csv --path_results=/data/mnist-results/
           resources:
