@@ -1,0 +1,70 @@
+## DPC Demo 
+
+Short demo/tutorial how you can use the AIML' shared computing resource, known as **Deep Puple Cluster (DPC)**. This is a different cluster than Phoenix and it can be used for any AIML member. Unlike Phoenix, DPC uses Kubernetes and Docker containers for deployment. 
+
+Cluster Composition
+
+```
+  1 x Ada A6000 Node
+  1 x L40S Node
+  8 x A100 Nodes
+  3 x DGX Nodes (with V100 GPUs)
+     - 1 x DGX-1 (8 GPUs)
+     - 2 x DGX-2 (16 GPUs each)
+```
+
+There is already a [main tutorial](https://github.com/aiml-au) for DPC use, however, the current demo is created in a higher level (dummy demo).
+
+### Steps 
+
+You need an @aiml.team account for accesisng to DPC. So, the first step is sending an email to admins@aiml.team requesting for the use of DPC. You need to CC your AIML supervisor. 
+
+Once, you get your @aiml.team account, you can access to the main DPC documentation here: https://help.cluster.aiml.team/. You can follow each one of the sections, however, since it might be a bit overwhelming, I leave here main steps for an easy use. First, you need to follow all the steps indicated in the **Preparation** section.
+
+We will be running a basic image classification model for [fashion MNIST](https://www.kaggle.com/datasets/zalando-research/fashionmnist). I created a basic script in python, then we would go to run it in a Docker container inside DPC.
+
+1) **Create PVC on DPC**. You can use the file `dpc-files/pvc`, where we are defining the storage for our project. We are using 100Gib. The maximum is 1000Gib. **NOTE**: You can ask the AIML's System Adm for more storage if you need. Run: 
+
+```
+kubectl create -f pvc.yaml
+```
+
+For your own project, change the pvc name  (e.g. my-project_pvc).
+
+2) **Transferring data to Pods** (smallest deployable unit of computing in Kubernetes): Use the file `dpc-files/data-transfering.yaml` and run: 
+
+```
+kubectl create -f data-transfering.yaml
+```
+
+Here, you need to change the metadata name (e.g. my-data_transfer) and match the PVC container name defined in the previous step (**data-transfer-pvc**).
+
+After doing this, you can check a new Pod (deployable unit in Kubernetes) is created, running:
+```
+kubectl get pods
+```
+OUTPUT:
+```
+NAME                                     READY   STATUS    RESTARTS   AGE
+mnist-data-transfer-bx9qp   1/1     Running   0          76s
+```
+This means, a docker container is running, which is responsible to handle your data. Now, you can transfer your data from your local workstation to the data Pod, by running:
+```
+kubectl cp ./data-brain/ mnist-data-transfer-bx9qp:/data/data-brain/
+```
+You can check if your data was transfered successfully by accessing to the Pod running: 
+```
+kubectl exec -it mnist-data-transfer-bx9qp  -- /bin/bash
+cd /data
+ls
+```
+OUTPUT:
+```
+data-brain  lost+found
+```
+
+3) Creating training Pods
+
+
+
+
