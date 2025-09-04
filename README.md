@@ -4,23 +4,12 @@ Short demo/tutorial how you can use the AIML' shared computing resource, known a
 
 Some advantages of using DPC:
 
-* GPU availability (see the GPUs available below)
+* GPU availability
 * You can run many experiments (it depends on availability)
 * Option of running in multiple GPUs 
 * Max. default storage of 1TB (you can ask to get more temporal storage)
 * Internet connection (great for recording the logs in real time - try [Wandb](https://wandb.ai/) 😀)
 * You can execute either Python or R scripts
-
-Cluster Composition
-
-```
-  1 x Ada A6000 Node
-  1 x L40S Node
-  8 x A100 Nodes
-  3 x DGX Nodes (with V100 GPUs)
-     - 1 x DGX-1 (8 GPUs)
-     - 2 x DGX-2 (16 GPUs each)
-```
 
 There is already a [main tutorial](https://github.com/aiml-au) for DPC use, however, the current demo is created in a higher level (dummy demo).
 
