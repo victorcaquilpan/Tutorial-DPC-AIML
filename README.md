@@ -55,7 +55,7 @@ kubectl create -f data-transfering.yaml
 
 Here, you need to change the metadata name (e.g. my-data_transfer) and match the PVC container name defined in the previous step (**data-transfer-pvc**).
 
-After doing this, you can check a new pod (smallest deployable unit in Kubernetes) is created, running:
+After doing this, you can check a new Pod (smallest deployable unit in Kubernetes) is created, running:
 ```
 kubectl get pods
 ```
@@ -64,9 +64,9 @@ OUTPUT:
 NAME                                     READY   STATUS    RESTARTS   AGE
 mnist-data-transfer-bx9qp   1/1     Running   0          76s
 ```
-This means, a docker container is running, which is responsible to handle your data. For each pod, an random text is added to the end of the name pod  (in this case **bx9qp**). This text is useful as an identifier for Kubernetes. Now, you can transfer your data from your local workstation to the data Pod, by running:
+This means, a docker container is running, which is responsible to handle your data. For each Pod, an random text is added to the end of the name pod  (in this case **bx9qp**). This text is useful as an identifier for Kubernetes. Now, you can transfer your data from your local workstation to the data Pod, by running:
 ```
-kubectl cp ./data/ mnist-data-transfer-bx9qp:/data/
+kubectl cp ./../data/ mnist-data-transfer-bx9qp:/data/
 ```
 You can check if your data was transfered successfully by accessing to the Pod running: 
 ```
@@ -76,8 +76,10 @@ ls
 ```
 OUTPUT:
 ```
-data-brain  lost+found
+data/  lost+found/ mnist-data/
 ```
+
+**mnist-data** corresponds to your data.
 
 3) Creating training Pods
 
