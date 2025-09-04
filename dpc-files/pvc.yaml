@@ -7,4 +7,4 @@ spec:
     - ReadWriteMany # So you can run multiple training pods with the same PVC
   resources:
     requests:
-      storage: 100Gi # You can change this value up to 1000Gi, I define 100Gi for this experiment
+      storage: 2Gi # You can change this value up to 1000Gi, I define 100Gi for this experiment

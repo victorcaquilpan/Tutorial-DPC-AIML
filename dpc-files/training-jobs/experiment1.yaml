@@ -15,7 +15,7 @@ spec:
             medium: Memory
         - name: dataset-volume
           persistentVolumeClaim:
-            claimName: brain-segmentation-pvc       # <------- your PVC name    kubectl get pvc
+            claimName: mnist-pvc       # <------- your PVC name    kubectl get pvc
       containers:
         - name: experiment1 # It is recommended to name your container according to the project
           image: docker.aiml.team/products/aiml/docker-example/pytorch-2.3.1-cuda12.1-cudnn8-devel:latest # You can reuse this image for different projects if their python dependencies are the same.
@@ -27,10 +27,10 @@ spec:
             - |
               cd 
               pip install --upgrade pip
-              git clone "https://github.com/victorcaquilpan/Brain-Tumors-Segmentation"
-              cd Brain-Tumors-Segmentation
+              git clone "https://github.com/victorcaquilpan/Tutorial-DPC-AIML"
+              cd mnist-dpc
               pip install -r requirements.txt
-              python train.py dataset.dataset_folder=/data/data-brain/ training.max_epochs=2 training.batch_size=1 training.val_every=1 training.learning_rate=1e-4 model.architecture=nn_former
+              python train.py --path_data=./../data/fashion-mnist.csv --path_results=./../results/
           resources:
             limits:
               nvidia.com/gpu: 1              # <------- If you don't need any of GPUs, Please comment-out this line.

@@ -2,6 +2,14 @@
 
 Short demo/tutorial how you can use the AIML' shared computing resource, known as **Deep Puple Cluster (DPC)**. This is a different cluster than Phoenix and it can be used for any AIML member. Unlike Phoenix, DPC uses Kubernetes and Docker containers for deployment. 
 
+Some advantages of using DPC:
+
+* GPU availability (see the GPUs available below)
+* You can run many experiments (it depends on availability)
+* Option of running in multiple GPUs 
+* Max. default storage of 1TB (you can ask Hui to get more temporal storage)
+* Internet connection (great for recording the logs in real time - try [Wandb](https://wandb.ai/) 😀)
+
 Cluster Composition
 
 ```
@@ -23,7 +31,7 @@ Once, you get your @aiml.team account, you can access to the main DPC documentat
 
 We will be running a basic image classification model for [fashion MNIST](https://www.kaggle.com/datasets/zalando-research/fashionmnist). I created a basic script in python, then we would go to run it in a Docker container inside DPC.
 
-1) **Create PVC on DPC**. You can use the file `dpc-files/pvc`, where we are defining the storage for our project. We are using 100Gib. The maximum is 1000Gib. **NOTE**: You can ask the AIML's System Adm for more storage if you need. Run: 
+1) **Create PVC on DPC**. You can use the file `dpc-files/pvc`, where we are defining the storage for our project (data, results, etc). We are using 2Gib for this project. The maximum is 1000Gib. **NOTE**: You can ask the AIML's System Adm for more storage if you need. Run: 
 
 ```
 kubectl create -f pvc.yaml
@@ -39,7 +47,7 @@ kubectl create -f data-transfering.yaml
 
 Here, you need to change the metadata name (e.g. my-data_transfer) and match the PVC container name defined in the previous step (**data-transfer-pvc**).
 
-After doing this, you can check a new Pod (deployable unit in Kubernetes) is created, running:
+After doing this, you can check a new pod (smallest deployable unit in Kubernetes) is created, running:
 ```
 kubectl get pods
 ```
