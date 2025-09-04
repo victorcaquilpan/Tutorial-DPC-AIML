@@ -74,6 +74,7 @@ kubectl exec -it mnist-data-transfer-bx9qp  -- /bin/bash
 cd /data
 ls
 ```
+
 OUTPUT:
 ```
 data/  lost+found/ mnist-data/
@@ -86,16 +87,60 @@ data/  lost+found/ mnist-data/
 Now, knowing your data is ready to use, you can create multiple YAML files for different experiments. For the experiments, you need to define mainly:
 
 * The docker image where you want to run your scripts. There are some internal images in docker.aiml.team. Otherwise, you can use any public docker image.  
-* Get the scripts. You can get the scrips by cloning a GitHub/GitLab repository. Also the script can be inside the image. 
+* Get the scripts to run. You can get the scrips by cloning a GitHub/GitLab repository. Also the script can be inside the image. 
+* It's quite convenient that your script accept an argument where you can define where is the input data (e.g. "path_data"), and another argument where you define the output as logs or checkpoints (e.g. "path_results").
 
 Inside the YAML file, you can define all the bash scripts that you need to run inside the Docker container. Also, you can add arguments to your script. For this example, we are using this repository to get the script to run.
+
+
+Check the bash script inside the **experiment1.yaml**:
+
+```
+cd 
+pip install --upgrade pip
+git clone "https://github.com/victorcaquilpan/Tutorial-DPC-AIML"
+cd Tutorial-DPC-AIML/code_repo/
+pip install -r requirements.txt
+python train.py --path_data=/data/mnist-data/fashion-mnist.csv --path_results=/data/mnist-results/
+```
+Here, the path_data and path_results point to the shared volume where we have already allocated our data.
+
+For running the training pod, we need to type:
 
 ```
 cd training-jobs
 kubectl create -f experiment1.yaml
 ```
 
-After that, you can use  ```kubectl get pods```
+After that, you can use  ```kubectl get pods``` to get the state of the pod. At this stage, you can get a similar output:
+
+```
+NAME                        READY   STATUS    RESTARTS   AGE
+experiment1-w8blz           1/1     Running   0          9s
+mnist-data-transfer-wv5vg   1/1     Running   0          17m
+
+```
+You can keep monitoring the logs of your POds by running:
+```
+kubectl logs experiment1-w8blz
+```
+In that way, you can check etiher everything is running okay or there is a mistake. If the Pod can run your scripts, the status will change to **Completed**. Since, my script is saving the best weights, we can see the output in the data training Pod by runnning:
+
+```
+kubectl exec -it mnist-data-transfer-wv5vg -- /bin/bash
+cd /data/mnist-results
+ls
+```
+
+output:
+```
+best_model.pth  hyperparameters.json  results.json  training_curves.png
+```
+
+From here, you can use the **best_model.pth** for finetuning a model or for testing. Also you can copy these weights by running ```kubectl cp pod_name:path_file local_path/```.
+
+
+
 
 
 
