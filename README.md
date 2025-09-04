@@ -83,6 +83,18 @@ data/  lost+found/ mnist-data/
 
 3) Creating training Pods
 
+Now, knowing your data is ready to use, you can create multiple YAML files for different experiments. For the experiments, you need to define mainly:
+
+* The docker image where you want to run your scripts. There are some internal images in docker.aiml.team. Otherwise, you can use any public docker image.  
+* Get the scripts. You can get the scrips by cloning a GitHub/GitLab repository. Also the script can be inside the image. 
+
+Inside the YAML file, you can define all the bash scripts that you need to run inside the Docker container. Also, you can add arguments to your script. For this example, we are using this repository to get the script to run.
+
+```
+cd training-jobs
+kubectl create -f experiment1.yaml
+```
+
 
 
 
