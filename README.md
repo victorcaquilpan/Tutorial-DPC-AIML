@@ -26,6 +26,11 @@ There is already a [main tutorial](https://github.com/aiml-au) for DPC use, howe
 
 ### Steps 
 
+
+You need an @aiml.team account for accesing to DPC. For this, you need to be a student or member of AIML and you need to get an @aiml.team account.
+
+Once, you get your @aiml.team account, you can access to the main DPC documentation here: https://help.cluster.aiml.team/. You need to follow all the steps of the **Preparation** section described there, before using DPC. After that, we will be running a basic experiment available in this repository. For that, you can clone it typing:
+
 First, clone this repository by running:
 
 ```
@@ -33,9 +38,8 @@ git clone https://github.com/victorcaquilpan/tutorial-dpc.git
 cd tutorial-dpc
 ```
 
-Now, you need an @aiml.team account for accesing to DPC. For this, you need to be a student or member of AIML. So, the first step is sending an email to admins@aiml.team requesting for the use of DPC. You need to CC your AIML supervisor. 
+Basically for running your experiments mostly you need to follow three steps:
 
-Once, you get your @aiml.team account, you can access to the main DPC documentation here: https://help.cluster.aiml.team/. You need to follow all the steps of the **Preparation** section described there, before using DPC. After that, for running your experiments mostly you need to follow three steps:
 
 1) Create a Persistent Volume Claim (PVC), which is a request for storage.
 2) Create a data-transfering Pod, which goes to contain your data for a longer time.
