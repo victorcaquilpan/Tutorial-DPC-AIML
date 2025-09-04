@@ -7,7 +7,7 @@ Some advantages of using DPC:
 * GPU availability (see the GPUs available below)
 * You can run many experiments (it depends on availability)
 * Option of running in multiple GPUs 
-* Max. default storage of 1TB (you can ask Hui to get more temporal storage)
+* Max. default storage of 1TB (you can ask to get more temporal storage)
 * Internet connection (great for recording the logs in real time - try [Wandb](https://wandb.ai/) 😀)
 * You can execute either Python or R scripts
 
@@ -46,7 +46,7 @@ Once, you get your @aiml.team account, you can access to the main DPC documentat
 
 This repository includes a Python implementation of an image classification model trained on the [Fashion-MNIST](https://www.kaggle.com/datasets/zalando-research/fashionmnist) dataset. The script provides a foundational training pipeline that will be containerized using Docker and deployed on DPC.
 
-1) **Create PVC on DPC**. You can use the file `dpc-files/pvc`, where we are defining the storage for our project (data, results, etc). We are using 2Gib for this project. The maximum is 1000Gib. **NOTE**: You can ask the AIML's System Adm for more storage if you need. Run: 
+1) **Create PVC on DPC**. You can use the file `dpc-files/pvc`, where we are defining the storage for our project (data, results, etc). We are using 2Gib for this project. The maximum is 1000Gib. **NOTE**: You can ask the AIML's System Admin for more storage if you need. Run: 
 
 ```
 cd dpc-files
