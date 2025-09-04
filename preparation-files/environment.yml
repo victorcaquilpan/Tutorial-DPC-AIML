@@ -1,8 +1,0 @@
-name: dpc-auth
-channels:
-  - defaults
-  - conda-forge
-dependencies:
-  - python=3.11
-  - pip
-  - requests>=2.25.0

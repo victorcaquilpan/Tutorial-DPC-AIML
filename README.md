@@ -25,6 +25,13 @@ There is already a [main tutorial](https://github.com/aiml-au) for DPC use, howe
 
 ### Steps 
 
+First, clone this repository by running:
+
+```
+git clone https://github.com/victorcaquilpan/Tutorial-DPC-AIML.git
+cd Tutorial-DPC-AIML
+```
+
 You need an @aiml.team account for accesisng to DPC. So, the first step is sending an email to admins@aiml.team requesting for the use of DPC. You need to CC your AIML supervisor. 
 
 Once, you get your @aiml.team account, you can access to the main DPC documentation here: https://help.cluster.aiml.team/. You can follow each one of the sections, however, since it might be a bit overwhelming, I leave here main steps for an easy use. First, you need to follow all the steps indicated in the **Preparation** section.
@@ -34,6 +41,7 @@ We will be running a basic image classification model for [fashion MNIST](https:
 1) **Create PVC on DPC**. You can use the file `dpc-files/pvc`, where we are defining the storage for our project (data, results, etc). We are using 2Gib for this project. The maximum is 1000Gib. **NOTE**: You can ask the AIML's System Adm for more storage if you need. Run: 
 
 ```
+cd dpc-files
 kubectl create -f pvc.yaml
 ```
 
@@ -56,9 +64,9 @@ OUTPUT:
 NAME                                     READY   STATUS    RESTARTS   AGE
 mnist-data-transfer-bx9qp   1/1     Running   0          76s
 ```
-This means, a docker container is running, which is responsible to handle your data. Now, you can transfer your data from your local workstation to the data Pod, by running:
+This means, a docker container is running, which is responsible to handle your data. For each pod, an random text is added to the end of the name pod  (in this case **bx9qp**). This text is useful as an identifier for Kubernetes. Now, you can transfer your data from your local workstation to the data Pod, by running:
 ```
-kubectl cp ./data-brain/ mnist-data-transfer-bx9qp:/data/data-brain/
+kubectl cp ./data/ mnist-data-transfer-bx9qp:/data/
 ```
 You can check if your data was transfered successfully by accessing to the Pod running: 
 ```
