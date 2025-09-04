@@ -1,6 +1,6 @@
 ## DPC Demo 
 
-Short demo/tutorial how you can use the AIML' shared computing resource, known as **Deep Puple Cluster (DPC)**. This is a different cluster than Phoenix and it can be used for any AIML member. Unlike Phoenix, DPC uses Kubernetes and Docker containers for deployment. 
+Short demo/tutorial how you can use the AIML' shared computing resource, known as **Deep Puple Cluster (DPC)**. This is a different cluster than Phoenix and it can be used for any AIML member. Unlike Phoenix, DPC uses Kubernetes and Docker containers for deployment. In Kubernetes the Pod is the smallest deployable unit of computing.
 
 Some advantages of using DPC:
 
@@ -32,9 +32,17 @@ git clone https://github.com/victorcaquilpan/Tutorial-DPC-AIML.git
 cd Tutorial-DPC-AIML
 ```
 
-You need an @aiml.team account for accesisng to DPC. So, the first step is sending an email to admins@aiml.team requesting for the use of DPC. You need to CC your AIML supervisor. 
+You need an @aiml.team account for accesing to DPC. So, the first step is sending an email to admins@aiml.team requesting for the use of DPC. You need to CC your AIML supervisor. 
 
 Once, you get your @aiml.team account, you can access to the main DPC documentation here: https://help.cluster.aiml.team/. You can follow each one of the sections, however, since it might be a bit overwhelming, I leave here main steps for an easy use. First, you need to follow all the steps indicated in the **Preparation** section.
+
+After that, mostly you need to follow three steps:
+1) Create a Persistent Volume Claim (PVC)
+2) Create a data-transfering Pod, which goes to contain your data for a long time.
+3) Create experiments Pods, which go to execute your scripts for training, testing, etc.
+
+![Simple structure](images/dpc.png)
+
 
 We will be running a basic image classification model for [fashion MNIST](https://www.kaggle.com/datasets/zalando-research/fashionmnist). I created a basic script in python, then we would go to run it in a Docker container inside DPC.
 
@@ -47,7 +55,7 @@ kubectl create -f pvc.yaml
 
 For your own project, change the pvc name  (e.g. my-project_pvc).
 
-2) **Transferring data to Pods** (smallest deployable unit of computing in Kubernetes): Use the file `dpc-files/data-transfering.yaml` and run: 
+2) **Transferring data to Pods**: Use the file `dpc-files/data-transfering.yaml` and run: 
 
 ```
 kubectl create -f data-transfering.yaml
