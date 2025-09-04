@@ -9,6 +9,7 @@ Some advantages of using DPC:
 * Option of running in multiple GPUs 
 * Max. default storage of 1TB (you can ask Hui to get more temporal storage)
 * Internet connection (great for recording the logs in real time - try [Wandb](https://wandb.ai/) 😀)
+* You can execute either Python or R scripts
 
 Cluster Composition
 
@@ -28,15 +29,14 @@ There is already a [main tutorial](https://github.com/aiml-au) for DPC use, howe
 First, clone this repository by running:
 
 ```
-git clone https://github.com/victorcaquilpan/Tutorial-DPC-AIML.git
-cd Tutorial-DPC-AIML
+git clone https://github.com/victorcaquilpan/tutorial-dpc.git
+cd tutorial-dpc
 ```
 
-You need an @aiml.team account for accesing to DPC. So, the first step is sending an email to admins@aiml.team requesting for the use of DPC. You need to CC your AIML supervisor. 
+NOw, you need an @aiml.team account for accesing to DPC. For this, you need to be a student or member of AIML. So, the first step is sending an email to admins@aiml.team requesting for the use of DPC. You need to CC your AIML supervisor. 
 
-Once, you get your @aiml.team account, you can access to the main DPC documentation here: https://help.cluster.aiml.team/. You can follow each one of the sections, however, since it might be a bit overwhelming, I leave here main steps for an easy use. First, you need to follow all the steps indicated in the **Preparation** section.
+Once, you get your @aiml.team account, you can access to the main DPC documentation here: https://help.cluster.aiml.team/. You need to follow all the steps of the **Preparation** section described there, before using DPC. After that, for running your experiments mostly you need to follow three steps:
 
-After that, mostly you need to follow three steps:
 1) Create a Persistent Volume Claim (PVC)
 2) Create a data-transfering Pod, which goes to contain your data for a long time.
 3) Create experiments Pods, which go to execute your scripts for training, testing, etc.
@@ -44,7 +44,7 @@ After that, mostly you need to follow three steps:
 ![Simple structure](images/dpc.png)
 
 
-We will be running a basic image classification model for [fashion MNIST](https://www.kaggle.com/datasets/zalando-research/fashionmnist). I created a basic script in python, then we would go to run it in a Docker container inside DPC.
+This repository includes a Python implementation of an image classification model trained on the [Fashion-MNIST](https://www.kaggle.com/datasets/zalando-research/fashionmnist) dataset. The script provides a foundational training pipeline that will be containerized using Docker and deployed on DPC.
 
 1) **Create PVC on DPC**. You can use the file `dpc-files/pvc`, where we are defining the storage for our project (data, results, etc). We are using 2Gib for this project. The maximum is 1000Gib. **NOTE**: You can ask the AIML's System Adm for more storage if you need. Run: 
 
@@ -106,8 +106,8 @@ Check the bash script inside the **experiment1.yaml**:
 ```
 cd 
 pip install --upgrade pip
-git clone "https://github.com/victorcaquilpan/Tutorial-DPC-AIML"
-cd Tutorial-DPC-AIML/code_repo/
+git clone "https://github.com/victorcaquilpan/tutorial-dpc"
+cd tutorial-dpc/code_repo/
 pip install -r requirements.txt
 python train.py --path_data=/data/mnist-data/fashion-mnist.csv --path_results=/data/mnist-results/
 ```
