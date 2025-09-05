@@ -25,9 +25,10 @@ spec:
           command: ["/bin/bash", "-c"]
           args:            
             - |
+              cd
               pip install --upgrade pip
-              git clone "https://github.com/victorcaquilpan/Tutorial-DPC-AIML"
-              cd Tutorial-DPC-AIML/code_repo/
+              git clone "https://github.com/victorcaquilpan/tutorial-dpc"
+              cd tutorial-dpc/code_repo/
               pip install -r requirements.txt
               python train.py --path_data=/data/mnist-data/fashion-mnist.csv --path_results=/data/mnist-results/
           resources:

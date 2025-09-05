@@ -65,7 +65,7 @@ mnist-data-transfer-bx9qp   1/1     Running   0          76s
 ```
 This means, a docker container is running, which is responsible to handle your data. For each Pod, an random text is added to the end of the name pod  (in this case **bx9qp**). This text is useful as an identifier for Kubernetes. Now, you can transfer your data from your local workstation to the data Pod, by running:
 ```
-kubectl cp ./../data/ mnist-data-transfer-bx9qp:/data/
+kubectl cp ./../mnist-data/ mnist-data-transfer-bx9qp:/data/
 ```
 You can check if your data was transfered successfully by accessing to the Pod running: 
 ```
@@ -146,8 +146,7 @@ best_model.pth  hyperparameters.json  results.json  training_curves.png
 
 From here, you can use the **best_model.pth** for finetuning a model or for testing. Also you can copy these weights by running ```kubectl cp pod_name:path_file local_path/```.
 
-
-
+Note: You can run multiple experiments defining a different job name for each one. Also, you can delete and re-run them as it's needed. I go to keep upgrading this repository and later migrating to our AIML gitlab environment with more information.
 
 
 
