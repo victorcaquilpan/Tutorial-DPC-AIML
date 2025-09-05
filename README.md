@@ -9,12 +9,11 @@ Some advantages of using DPC:
 * Option of running in multiple GPUs 
 * Max. default storage of 1TB (you can ask to get more temporal storage)
 * Internet connection (great for recording the logs in real time - try [Wandb](https://wandb.ai/) 😀)
-* You can execute either Python or R scripts
+* You can execute either Python or R scripts (or anything actually)
 
 ### Steps 
 
-
-You need an @aiml.team account for accesing to DPC. For this, you need to be a student or member of AIML and you need to get an @aiml.team account. Ask me how you can get one account.
+You need an @aiml.team account for accesing to DPC. For this, you need to be a student or member of AIML and you need to get an @aiml.team account. Ask me how you can get one account (private info).
 
 Once, you get your @aiml.team account, you can access to the main DPC documentation here: https://help.cluster.aiml.team/. You need to follow all the steps of the **Preparation** section described there, before using DPC. After that, we will be running a basic experiment available in this repository. For that, you can clone it typing:
 
@@ -28,14 +27,15 @@ cd tutorial-dpc
 Basically for running your experiments mostly you need to follow three steps:
 
 
-1) Create a Persistent Volume Claim (PVC), which is a request for storage.
+1) Create a Persistent Volume Claim (PVC), which is a request for storage (space in the cluster).
 2) Create a data-transfering Pod, which goes to contain your data for a longer time.
-3) Create experiments Pods, which go to execute your scripts for training, testing, etc. These Pods will live temporally, meantime your script is running.
+3) Create experiments Pods, which go to execute your scripts for training, testing, etc. These Pods will live temporally, meantime your script is running. After that, they kill themselves. 
 
-![Simple structure](images/dpc.png)
+The diagram below illustrates a simplified DPC structure (left) and the corresponding training process that we go to use for this tutorial (right).
 
+![Simple structure](images/dpc2.png)
 
-This repository includes a Python implementation of an image classification model trained on the [Fashion-MNIST](https://www.kaggle.com/datasets/zalando-research/fashionmnist) dataset. The script provides a foundational training pipeline that will be containerized using Docker and deployed on DPC.
+This repository includes a Python implementation of an image classification model trained on the [Fashion-MNIST](https://www.kaggle.com/datasets/zalando-research/fashionmnist) dataset. The script available in the **code_repo/train.py** provides a basic training pipeline that will be containerized using Docker and deployed on DPC.
 
 1) **Create PVC on DPC**. You can use the file `dpc-files/pvc`, where we are defining the storage for our project (data, results, etc). We are using 2Gib for this project. The maximum is 1000Gib. **NOTE**: You can ask the AIML's System Admin for more storage if you need. Run: 
 
@@ -58,7 +58,7 @@ After doing this, you can check a new Pod (smallest deployable unit in Kubernete
 ```
 kubectl get pods
 ```
-OUTPUT:
+**Output**:
 ```
 NAME                                     READY   STATUS    RESTARTS   AGE
 mnist-data-transfer-bx9qp   1/1     Running   0          76s
@@ -74,7 +74,7 @@ cd /data
 ls
 ```
 
-OUTPUT:
+**Output**:
 ```
 data/  lost+found/ mnist-data/
 ```
@@ -89,13 +89,14 @@ Now, knowing your data is ready to use, you can create multiple YAML files for d
 * Get the scripts to run. You can get the scrips by cloning a GitHub/GitLab repository. Also the script can be inside the image. 
 * It's quite convenient that your script accept an argument where you can define where is the input data (e.g. "path_data"), and another argument where you define the output as logs or checkpoints (e.g. "path_results").
 
-Inside the YAML file, you can define all the bash scripts that you need to run inside the Docker container. Also, you can add arguments to your script. For this example, we are using this repository to get the script to run.
+Inside the YAML file, you can define all the bash scripts that you need to run inside the Docker container. Also, you can add arguments to your script. For this example, we are using this repository to get the script to run.(you can modify these commands according to your experiments):
 
 
-Check the bash script inside the **experiment1.yaml**:
+Check the bash script inside the **experiment1.yaml**, from lines 27 to 32, they contain the commands that will be executed inside your Docker container.:
+
+**Don't run this**:
 
 ```
-cd 
 pip install --upgrade pip
 git clone "https://github.com/victorcaquilpan/tutorial-dpc"
 cd tutorial-dpc/code_repo/
@@ -111,7 +112,14 @@ cd training-jobs
 kubectl create -f experiment1.yaml
 ```
 
-After that, you can use  ```kubectl get pods``` to get the state of the pod. At this stage, you can get a similar output:
+After that, you can run  ```kubectl get pods``` to get the state of the pod. At this stage, you can get a similar output. Run:
+
+
+```
+kubectl get pods
+```
+
+**Output:**
 
 ```
 NAME                        READY   STATUS    RESTARTS   AGE
@@ -119,11 +127,11 @@ experiment1-w8blz           1/1     Running   0          9s
 mnist-data-transfer-wv5vg   1/1     Running   0          17m
 
 ```
-You can keep monitoring the logs of your POds by running:
+You can keep monitoring the logs of your Pods by running:
 ```
 kubectl logs experiment1-w8blz
 ```
-In that way, you can check etiher everything is running okay or there is a mistake. If the Pod can run your scripts, the status will change to **Completed**. Since, my script is saving the best weights, we can see the output in the data training Pod by runnning:
+In that way, you can check etiher everything is running okay or there is a mistake. If the Pod can run your scripts, the status will change to **Completed**. Since, my script is saving the best weights, we can see the output in the data training Pod by running:
 
 ```
 kubectl exec -it mnist-data-transfer-wv5vg -- /bin/bash
@@ -131,7 +139,7 @@ cd /data/mnist-results
 ls
 ```
 
-output:
+**Output**:
 ```
 best_model.pth  hyperparameters.json  results.json  training_curves.png
 ```
